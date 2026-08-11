@@ -304,6 +304,52 @@ body.quiz-gated #finale{
 .confetti{position:fixed; top:-10px; z-index:5; border-radius:2px; pointer-events:none;}
 .footer-note{margin-top:4rem; font-size:0.75rem; color:rgba(246,239,228,0.35); letter-spacing:0.05em;}
 
+/* ---------- Surprise gift popup ---------- */
+.gift-overlay{
+  position:fixed; inset:0; z-index:70;
+  background:rgba(5,4,10,0.82); backdrop-filter:blur(4px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity 0.35s ease;
+}
+.gift-overlay.show{opacity:1; pointer-events:auto;}
+.gift-pop{
+  position:relative; max-width:min(360px, 88vw); width:100%;
+  background:linear-gradient(160deg, rgba(91,58,99,0.75), rgba(31,26,58,0.9));
+  border:1px solid var(--gold); border-radius:20px;
+  padding:2.6rem 1.8rem 2rem; text-align:center;
+  transform:scale(0.86) translateY(16px); transition:transform 0.35s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 24px 60px rgba(0,0,0,0.55), 0 0 40px rgba(242,193,78,0.15);
+}
+.gift-overlay.show .gift-pop{transform:scale(1) translateY(0);}
+.gift-close{
+  position:absolute; top:0.85rem; right:1rem; cursor:pointer;
+  font-size:1.6rem; line-height:1; color:rgba(246,239,228,0.6);
+  transition:color 0.2s ease; background:none; border:none;
+}
+.gift-close:hover{color:var(--ink);}
+.gift-emoji{
+  font-size:3.4rem; line-height:1; margin-bottom:1rem;
+  animation:giftBob 1.6s ease-in-out infinite; display:inline-block;
+}
+@keyframes giftBob{0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);}}
+.gift-title{
+  font-family:var(--serif); font-style:italic; font-weight:600;
+  font-size:1.45rem; color:var(--ink); margin-bottom:0.5rem;
+}
+.gift-note{
+  font-size:0.98rem; line-height:1.7; color:rgba(246,239,228,0.78);
+  margin-bottom:1.6rem;
+}
+.gift-link{
+  display:inline-block; font-family:var(--sans); font-weight:700;
+  font-size:0.95rem; letter-spacing:0.04em; text-decoration:none;
+  padding:0.85rem 1.8rem; border-radius:999px;
+  background:linear-gradient(120deg, var(--gold), var(--coral)); color:#1f1330;
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gift-link:hover{transform:translateY(-2px) scale(1.04); box-shadow:0 10px 26px rgba(242,193,78,0.35);}
+.gift-tap{font-size:0.72rem; margin-top:1.3rem; letter-spacing:0.08em; color:rgba(246,239,228,0.45); text-transform:uppercase;}
+
 /* ============================================================
    Responsive — tablets
    ============================================================ */

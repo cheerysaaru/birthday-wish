@@ -271,6 +271,7 @@ blowBtn.addEventListener('click', ()=>{
   blowBtn.textContent = 'Wish made 🤍';
   finalMsg.classList.add('show');
   launchConfetti();
+  setTimeout(()=>{ giftOverlay.classList.add('show'); }, 1400);
 });
 function launchConfetti(){
   const colors = ['#f2c14e','#f2a0a8','#f0776a','#8fb39b','#f6efe4'];
@@ -293,3 +294,11 @@ function launchConfetti(){
     setTimeout(()=>el.remove(), duration*1000+100);
   }
 }
+
+/* ---------- Surprise gift popup ---------- */
+const giftOverlay = document.getElementById('giftOverlay');
+const giftClose  = document.getElementById('giftClose');
+giftClose.addEventListener('click', ()=>giftOverlay.classList.remove('show'));
+giftOverlay.addEventListener('click', function(e){
+  if(e.target === this) giftOverlay.classList.remove('show');
+});
