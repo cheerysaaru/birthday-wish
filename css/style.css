@@ -96,7 +96,7 @@ h1.title.line2{
   font-size:0.42em;
   vertical-align:0.32em;
   margin-left:0.08em;
-  color:var(--coral);
+  color:#ff3b3b;
   animation:heartbeat 1.8s ease-in-out infinite;
 }
 @keyframes heartbeat{
