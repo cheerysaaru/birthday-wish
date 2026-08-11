@@ -87,8 +87,7 @@ h1.title.line1{
 }
 h1.title.line2{
   font-size:clamp(4.2rem, 16vw, 9.5rem);
-  background:linear-gradient(120deg, var(--gold), var(--blush) 70%);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
+  color:#ffffff;
   animation:fadeUp 1s ease forwards 0.8s;
   margin-top:0.2rem;
 }
@@ -265,8 +264,8 @@ body.quiz-gated #finale{
 
 /* ---------- Sorry section ---------- */
 #sorry .sorry-grid{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem;
-  max-width:960px; width:100%;
+  display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem;
+  max-width:720px; width:100%;
 }
 .sorry-card{
   background:linear-gradient(160deg, rgba(240,119,106,0.14), rgba(31,26,58,0.5));
