@@ -157,6 +157,24 @@ window.addEventListener('scroll', ()=>{
   }
 });
 
+/* ---------- Scroll reveal animations ---------- */
+const revealEls = document.querySelectorAll(
+  '.section-eyebrow, .section-title, .section-lede, .story-card, .letter, .quiz-progress, .quiz-card, .quiz-result, .scratch-wrap, .scratch-hint, .scratch-reveal-msg, .sorry-card, .cake, .blow-btn, .final-msg, .footer-note'
+);
+const revObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      revObserver.unobserve(e.target);
+    }
+  });
+},{threshold:0.18});
+revealEls.forEach((el,i)=>{
+  el.classList.add('reveal');
+  if(el.classList.contains('sorry-card')) el.style.transitionDelay = (i%6)*0.12 + 's';
+  revObserver.observe(el);
+});
+
 /* kick off the quiz — renders the first question */
 renderQuestion();
 
