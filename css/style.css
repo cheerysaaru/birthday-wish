@@ -24,6 +24,8 @@ body{
   font-family:var(--sans);
   overflow-x:hidden;
   overflow-wrap:break-word;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
   min-height:100vh;
   min-height:100svh;
   padding-left:env(safe-area-inset-left);
@@ -133,6 +135,15 @@ h2.section-title{
   max-width:42ch; color:rgba(246,239,228,0.75); line-height:1.6; margin-bottom:3rem;
 }
 
+/* ---------- Balanced, non-breaking text ---------- */
+h1.title, h2.section-title, .quiz-q, .memory h3, .sorry-card h3, .gift-title{
+  text-wrap:balance;
+}
+.subtitle, .section-lede, .story-card p, .letter p, .memory p, .sorry-card p, .final-msg, .gift-note{
+  text-wrap:pretty;
+}
+.story-card, .letter{min-width:0;}
+
 /* ---------- How we met ---------- */
 #howwemet .story-card{
   max-width:640px; background:linear-gradient(160deg, rgba(91,58,99,0.32), rgba(31,26,58,0.5));
@@ -204,6 +215,7 @@ h2.section-title{
   padding:0.75rem 1rem; border-radius:10px;
   border:1px solid var(--line); background:rgba(246,239,228,0.04);
   color:var(--ink); cursor:pointer; transition:all 0.25s ease;
+  overflow-wrap:anywhere; min-width:0;
 }
 .quiz-opt:hover{background:rgba(246,239,228,0.09);}
 .quiz-opt.correct{background:rgba(143,179,155,0.28); border-color:var(--sage);}
@@ -270,7 +282,7 @@ body.quiz-gated #finale{
 .sorry-card{
   background:linear-gradient(160deg, rgba(240,119,106,0.14), rgba(31,26,58,0.5));
   border:1px solid var(--line); border-radius:16px;
-  padding:2rem 1.5rem; text-align:left;
+  padding:2rem 1.5rem; text-align:left; min-width:0;
 }
 .sorry-num{
   font-family:var(--serif); font-style:italic; font-size:2.2rem; color:var(--coral); opacity:0.7;
@@ -393,6 +405,17 @@ body.quiz-gated #finale{
   h1.title.line2{font-size:clamp(2.9rem, 13vw, 4rem);}
   .memory{padding-left:2.7rem;}
   .scroll-hint{display:none;}
+}
+
+/* ============================================================
+   Responsive — very small phones (<=340px)
+   ============================================================ */
+@media(max-width:340px){
+  section{padding:3.5rem 0.9rem;}
+  h1.title.line2{font-size:clamp(2.6rem, 12vw, 3.4rem);}
+  .subtitle{font-size:0.95rem;}
+  .quiz-opt{font-size:0.9rem; padding:0.65rem 0.75rem;}
+  .gift-pop{padding:2.2rem 1.2rem 1.8rem;}
 }
 
 /* ============================================================

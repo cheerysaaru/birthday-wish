@@ -52,7 +52,7 @@ const quizData = [
   { q:"Nee enna how many times slap pannirukka? 😂🤣",
     options:["1 time","2 times","3 times","Count eh marandhuten 😂"],
     correct:3, fun:"Ha! Count eh marandhuten dhaan sariyaana answer 😂🤣" },
-  { q:"Ennatha enna pudikkum? 🥹❤️",
+  { q:"Ennata enna pudikkum? 🥹❤️",
     options:["En sirippu","En vekkam","Nee enna care panrathu","Ellame ❤️"],
     correct:3, fun:"Ellame thaan correct ❤️ Aana un sirippu special 🥹" },
   { q:"Naan unna evvalavu love pannuren? 🥹❤️",
@@ -60,7 +60,7 @@ const quizData = [
     correct:3, fun:"Alave illa — ithu correct ❤️ Naan unna alavukku meedhu love panren 🥹" },
   { q:"You are my ______ ❤️",
     options:["Ammu","Ammu","Ammu","En life ❤️"],
-    correct:2, fun:"En life ❤️ Nee thaan en life ma 🥹" }
+    correct:3, fun:"You're right! ❤️" }
 ];
 
 let qIndex = 0, score = 0;
@@ -183,7 +183,7 @@ renderQuestion();
    PHOTO_URL below to "assets/photo.jpg". Until then the
    placeholder illustration is used.
 ------------------------------------- */
-const PHOTO_URL = "";
+const PHOTO_URL = "mine.jpeg";
 
 const placeholderSVG = `data:image/svg+xml;utf8,${encodeURIComponent(`
 <svg xmlns="http://www.w3.org/2000/svg" width="320" height="400" viewBox="0 0 320 400">
@@ -201,13 +201,16 @@ const placeholderSVG = `data:image/svg+xml;utf8,${encodeURIComponent(`
 `)}`;
 
 const scratchPhoto = document.getElementById('scratchPhoto');
-scratchPhoto.src = PHOTO_URL || placeholderSVG;
+// start with the placeholder graphic; reveal the real PHOTO_URL only after scratching
+scratchPhoto.style.transition = 'opacity 0.6s ease';
+scratchPhoto.style.opacity = '1';
+scratchPhoto.src = placeholderSVG;
 
 const canvas = document.getElementById('scratchCanvas');
 const ctx = canvas.getContext('2d');
 const scratchWrap = document.querySelector('.scratch-wrap');
 const scratchMsg = document.getElementById('scratchMsg');
-let scratchDone = false;
+let scratchDone = false; // always start covered on page load
 
 function setupScratch(){
   const rect = scratchWrap.getBoundingClientRect();
@@ -225,6 +228,8 @@ function setupScratch(){
 }
 setupScratch();
 window.addEventListener('resize', ()=>{ if(!scratchDone) setupScratch(); });
+
+// start covered by default (no persisted reveal)
 
 let isDown = false;
 function getPos(e){
@@ -246,7 +251,14 @@ function checkCleared(){
     scratchDone = true;
     canvas.style.transition = 'opacity 0.6s ease';
     canvas.style.opacity = '0';
+    canvas.style.pointerEvents = 'none';
     scratchMsg.classList.add('show');
+    // replace placeholder with real photo (if provided) and fade it in
+    if(PHOTO_URL){
+      scratchPhoto.style.opacity = '0';
+      scratchPhoto.addEventListener('load', ()=>{ scratchPhoto.style.opacity = '1'; }, {once:true});
+      scratchPhoto.src = PHOTO_URL;
+    }
   }
 }
 function start(e){ isDown = true; const p=getPos(e); scratchAt(p.x,p.y); }
@@ -273,6 +285,7 @@ blowBtn.addEventListener('click', ()=>{
   launchConfetti();
   setTimeout(()=>{ giftOverlay.classList.add('show'); }, 1400);
 });
+
 function launchConfetti(){
   const colors = ['#f2c14e','#f2a0a8','#f0776a','#8fb39b','#f6efe4'];
   for(let i=0;i<70;i++){
