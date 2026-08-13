@@ -59,8 +59,8 @@ const quizData = [
     options:["Romba konjam 😂","Konjam","Romba romba","Alave illa ❤️🥹"],
     correct:3, fun:"Alave illa — ithu correct ❤️ Naan unna alavukku meedhu love panren 🥹" },
   { q:"You are my ______ ❤️",
-    options:["Ammu","Ammu","Ammu","En life ❤️"],
-    correct:3, fun:"You're right! ❤️" }
+    options:["Ammu","Ammu","Ammu","Ammu ❤️"],
+    correct:[0,1,2,3], fun:"You're right! ❤️" }
 ];
 
 let qIndex = 0, score = 0;
@@ -87,7 +87,8 @@ function renderQuestion(){
 }
 function handleAnswer(i,btn){
   const item = quizData[qIndex];
-  if(i===item.correct){
+  const isCorrect = Array.isArray(item.correct) ? item.correct.includes(i) : i===item.correct;
+  if(isCorrect){
     const allBtns = quizOptions.querySelectorAll('.quiz-opt');
     allBtns.forEach(b=>b.style.pointerEvents='none');
     btn.classList.add('correct');
